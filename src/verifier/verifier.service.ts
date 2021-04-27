@@ -8,10 +8,6 @@ export class VerifierService {
     return 'This action adds a new verifier';
   }
 
-  renderVerifier() {
-    return { message: 'AAAA' };
-  }
-
   findOne(id: number) {
     return `This action returns a #${id} verifier`;
   }

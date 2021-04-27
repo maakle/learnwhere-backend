@@ -16,15 +16,15 @@ import { UpdateVerifierDto } from './dto/update-verifier.dto';
 export class VerifierController {
   constructor(private readonly verifierService: VerifierService) {}
 
-  @Post()
-  create(@Body() createVerifierDto: CreateVerifierDto) {
-    return this.verifierService.create(createVerifierDto);
-  }
-
   @Get()
   @Render('verifier/index')
   renderVerifier() {
-    return this.verifierService.renderVerifier();
+    return;
+  }
+
+  @Post()
+  create(@Body() createVerifierDto: CreateVerifierDto) {
+    return this.verifierService.create(createVerifierDto);
   }
 
   @Get(':id')

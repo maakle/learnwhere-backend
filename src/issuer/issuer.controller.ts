@@ -20,15 +20,15 @@ export class IssuerController {
     private configService: ConfigService,
   ) {}
 
-  @Post('create')
-  create(@Body() createIssuerDto: CreateIssuerDto) {
-    return this.issuerService.create(createIssuerDto, this.configService);
-  }
-
   @Get()
   @Render('issuer/index')
   renderIssuance() {
-    return this.issuerService.renderIssuance();
+    return;
+  }
+
+  @Post('create')
+  create(@Body() createIssuerDto: CreateIssuerDto) {
+    return this.issuerService.create(createIssuerDto, this.configService);
   }
 
   // @Get(':id')

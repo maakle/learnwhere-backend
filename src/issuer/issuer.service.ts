@@ -12,10 +12,6 @@ export class IssuerService {
     return 'This action adds a new issuer';
   }
 
-  renderIssuance() {
-    return { message: 'success' };
-  }
-
   // findOne(id: number) {
   //   return `This action returns a #${id} issuer`;
   // }
