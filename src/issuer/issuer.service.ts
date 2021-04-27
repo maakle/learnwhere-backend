@@ -8,8 +8,8 @@ export class IssuerService {
     return 'This action adds a new issuer';
   }
 
-  findAll() {
-    return `This action returns all issuer`;
+  renderIssuance() {
+    return { message: 'AAAA' };
   }
 
   findOne(id: number) {

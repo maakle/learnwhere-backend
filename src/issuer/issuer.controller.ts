@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+} from '@nestjs/common';
 import { IssuerService } from './issuer.service';
 import { CreateIssuerDto } from './dto/create-issuer.dto';
 import { UpdateIssuerDto } from './dto/update-issuer.dto';
@@ -13,8 +22,9 @@ export class IssuerController {
   }
 
   @Get()
-  findAll() {
-    return this.issuerService.findAll();
+  @Render('issuer/index')
+  renderIssuance() {
+    return this.issuerService.renderIssuance();
   }
 
   @Get(':id')

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Render,
+} from '@nestjs/common';
 import { VerifierService } from './verifier.service';
 import { CreateVerifierDto } from './dto/create-verifier.dto';
 import { UpdateVerifierDto } from './dto/update-verifier.dto';
@@ -13,8 +22,9 @@ export class VerifierController {
   }
 
   @Get()
-  findAll() {
-    return this.verifierService.findAll();
+  @Render('verifier/index')
+  renderVerifier() {
+    return this.verifierService.renderVerifier();
   }
 
   @Get(':id')
@@ -23,7 +33,10 @@ export class VerifierController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVerifierDto: UpdateVerifierDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateVerifierDto: UpdateVerifierDto,
+  ) {
     return this.verifierService.update(+id, updateVerifierDto);
   }
 

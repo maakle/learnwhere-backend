@@ -4,6 +4,6 @@ import { IssuerController } from './issuer.controller';
 
 @Module({
   controllers: [IssuerController],
-  providers: [IssuerService]
+  providers: [IssuerService],
 })
 export class IssuerModule {}

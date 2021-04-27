@@ -8,8 +8,8 @@ export class VerifierService {
     return 'This action adds a new verifier';
   }
 
-  findAll() {
-    return `This action returns all verifier`;
+  renderVerifier() {
+    return { message: 'AAAA' };
   }
 
   findOne(id: number) {
