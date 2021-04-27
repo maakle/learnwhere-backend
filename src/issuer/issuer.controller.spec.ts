@@ -1,3 +1,4 @@
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { IssuerController } from './issuer.controller';
 import { IssuerService } from './issuer.service';
@@ -7,6 +8,7 @@ describe('IssuerController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ConfigModule],
       controllers: [IssuerController],
       providers: [IssuerService],
     }).compile();
