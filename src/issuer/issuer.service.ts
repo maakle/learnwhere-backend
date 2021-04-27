@@ -9,7 +9,7 @@ export class IssuerService {
   }
 
   renderIssuance() {
-    return { message: 'AAAA' };
+    return { message: 'success' };
   }
 
   findOne(id: number) {
