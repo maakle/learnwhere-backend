@@ -7,18 +7,17 @@ import {
   Param,
   Delete,
   Render,
+  Req,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Request } from 'express';
+
 import { IssuerService } from './issuer.service';
 import { CreateIssuerDto } from './dto/create-issuer.dto';
 import { UpdateIssuerDto } from './dto/update-issuer.dto';
 
 @Controller('issuer')
 export class IssuerController {
-  constructor(
-    private readonly issuerService: IssuerService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private readonly issuerService: IssuerService) {}
 
   @Get()
   @Render('issuer/index')
@@ -26,9 +25,9 @@ export class IssuerController {
     return;
   }
 
-  @Post('create')
-  create(@Body() createIssuerDto: CreateIssuerDto) {
-    return this.issuerService.create(createIssuerDto, this.configService);
+  @Get('create-request')
+  create(@Req() request: Request) {
+    return this.issuerService.createIssueRequest(request);
   }
 
   // @Get(':id')
