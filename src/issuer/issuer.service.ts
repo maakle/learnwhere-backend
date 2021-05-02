@@ -69,15 +69,13 @@ export class IssuerService {
     try {
       const issueRequest = await requestBuilder.build().create();
       console.log('AAAA ', issueRequest);
+      // Save issueRequest in data storage db
     } catch (error) {
       console.log(error);
     }
 
-    // Save issueRequest in data storage db
-    // const issueRequest = await requestBuilder.build().create();
-
     const id = '122345';
-    // TODO save to db
+    // ID from DB
 
     // Return a reference to the issue request that can be encoded as a QR code
     const requestUri = encodeURIComponent(
@@ -87,16 +85,4 @@ export class IssuerService {
 
     return issueRequestReference;
   }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} issuer`;
-  // }
-
-  // update(id: number, updateIssuerDto: UpdateIssuerDto) {
-  //   return `This action updates a #${id} issuer`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} issuer`;
-  // }
 }

@@ -28,11 +28,16 @@
     "@nestjs/core": "^7.6.15",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/typeorm": "^7.1.5",
+    "class-validator": "^0.13.1",
     "hbs": "^4.1.2",
+    "pg": "^8.6.0",
+    "pg-native": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "secure-random": "^1.1.2",
+    "typeorm": "^0.2.32",
     "verifiablecredentials-verification-sdk-typescript": "^0.12.1-preview.2"
   },
   "devDependencies": {
