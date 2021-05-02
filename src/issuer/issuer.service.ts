@@ -65,11 +65,16 @@ export class IssuerService {
       } as any,
       crypto,
     ).allowIssuance();
-    console.log('AAAA ', crypto);
+
+    try {
+      const issueRequest = await requestBuilder.build().create();
+      console.log('AAAA ', issueRequest);
+    } catch (error) {
+      console.log(error);
+    }
 
     // Save issueRequest in data storage db
-    const issueRequest = await requestBuilder.build().create();
-    console.log('biatch ', issueRequest);
+    // const issueRequest = await requestBuilder.build().create();
 
     const id = '122345';
     // TODO save to db
