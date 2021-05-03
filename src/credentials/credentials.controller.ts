@@ -1,14 +1,19 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { CredentialsService } from './credentials.service';
-import { CreateCredentialDto } from './dto/create-credential.dto';
-import { UpdateCredentialDto } from './dto/update-credential.dto';
+import { Controller, Get, Render, Req } from '@nestjs/common';
+import { IssuerService } from '../issuer/issuer.service';
+import { Request } from 'express';
 
 @Controller('credentials')
 export class CredentialsController {
-  constructor(private readonly credentialsService: CredentialsService) {}
+  constructor(private readonly issuanceService: IssuerService) {}
 
-  @Post()
-  create(@Body() createCredentialDto: CreateCredentialDto) {
-    return this.credentialsService.create(createCredentialDto);
+  @Get('issue-request')
+  @Render('credentials/issue-request')
+  renderIssuance() {
+    return;
+  }
+
+  @Get('create-issue-request')
+  createIssueRequest(@Req() request: Request) {
+    return this.issuanceService.createIssueRequest(request);
   }
 }

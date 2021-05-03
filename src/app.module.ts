@@ -15,6 +15,7 @@ import expertCredential from '../config/credentials/expertCredential';
   imports: [
     ConfigModule.forRoot({
       load: [didConfig, expertCredential],
+      isGlobal: true,
     }),
     DatabaseModule,
     CredentialsModule,
