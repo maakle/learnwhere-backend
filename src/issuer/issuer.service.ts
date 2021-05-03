@@ -36,7 +36,7 @@ export class IssuerService {
   }
 
   async createIssueRequest(req: Request) {
-    console.log('biatch createIssueRequest');
+    console.log('createIssueRequest');
 
     const crypto = new CryptoBuilder()
       .useSigningKeyReference(this.signingKeyReference)
