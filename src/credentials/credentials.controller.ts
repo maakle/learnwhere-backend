@@ -7,7 +7,7 @@ export class CredentialsController {
   constructor(private readonly issuanceService: IssuerService) {}
 
   @Get('issue')
-  @Render('credentials/issue-request')
+  @Render('credentials/issue')
   renderIssuance() {
     return;
   }
