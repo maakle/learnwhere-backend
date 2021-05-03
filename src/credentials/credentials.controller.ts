@@ -6,7 +6,7 @@ import { Request } from 'express';
 export class CredentialsController {
   constructor(private readonly issuanceService: IssuerService) {}
 
-  @Get('issue-request')
+  @Get('issue')
   @Render('credentials/issue-request')
   renderIssuance() {
     return;
