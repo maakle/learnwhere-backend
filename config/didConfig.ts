@@ -4,6 +4,8 @@ export default () => ({
   azClientSecret: '1bWD_tu3~9B0_.ROW3BFJN-Hu_xjfR8EL5',
   kvVaultUri: 'https://didplayground.vault.azure.net/',
   kvSigningKeyId: 'sig_24bb3074',
+  kvRecoveryKeyId: 'issuer-recovery-key',
+  kvUpdateKeyId: 'issuer-update-key',
   kvRemoteSigningKeyId:
     'issuerSigningKeyIon-24bb3074-5221-7ec1-4191-d8dbb7e0368a/0496cefffb3f4ef4aff943be1fbf3db3',
   did:
