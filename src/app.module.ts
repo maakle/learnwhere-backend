@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { DatabaseModule } from './database/database.module';
 import { IssuerModule } from './issuer/issuer.module';
 import { CredentialsModule } from './credentials/credentials.module';
+import { UsersModule } from './users/users.module';
 
 import didConfig from '../config/didConfig';
 import expertCredential from '../config/credentials/expertCredential';
@@ -20,6 +21,7 @@ import expertCredential from '../config/credentials/expertCredential';
     DatabaseModule,
     CredentialsModule,
     IssuerModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [],
