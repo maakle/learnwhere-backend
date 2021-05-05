@@ -1,6 +1,5 @@
 import { Controller, Get, Render, Req } from '@nestjs/common';
 import { IssuerService } from '../issuer/issuer.service';
-import { Request } from 'express';
 
 @Controller('credentials')
 export class CredentialsController {
@@ -10,10 +9,5 @@ export class CredentialsController {
   @Render('credentials/issue')
   renderIssuance() {
     return;
-  }
-
-  @Get('create-issue-request')
-  createIssueRequest(@Req() request: Request) {
-    return this.issuanceService.createIssueRequest(request);
   }
 }

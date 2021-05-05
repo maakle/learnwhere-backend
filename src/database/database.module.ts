@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Credential } from '../credentials/entities/credential.entity';
 import User from '../users/entities/user.entity';
+import UnsignedVC from '../issuer/entities/unsignedVC.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import User from '../users/entities/user.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PW,
       database: process.env.DATABASE_NAME,
-      entities: [Credential, User],
+      entities: [Credential, User, UnsignedVC],
       synchronize: true,
     }),
   ],
