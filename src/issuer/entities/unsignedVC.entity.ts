@@ -1,8 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { VCV1Unsigned, VCV1Skeleton } from '@affinidi/vc-common';
 
 @Entity()
-class UnsignedVC {
+class UnsignedVc {
   @PrimaryGeneratedColumn()
   public id?: number;
 
@@ -12,7 +11,6 @@ class UnsignedVC {
   @Column({
     type: 'jsonb',
   })
-  @Column()
   public data: Record<string, unknown>;
 
   @Column()
@@ -22,4 +20,4 @@ class UnsignedVC {
   public expiresAt?: string;
 }
 
-export default UnsignedVC;
+export default UnsignedVc;

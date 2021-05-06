@@ -1,18 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCredentialDto } from './dto/create-credential.dto';
-import { UpdateCredentialDto } from './dto/update-credential.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Credential } from './entities/credential.entity';
-import { CredentialRepository } from './credential.repository';
+import Credential from './entities/credential.entity';
+import { Repository } from 'typeorm';
+import ToBeSignedDto from './dto/ToBeSigned.dto';
 
 @Injectable()
 export class CredentialsService {
   constructor(
     @InjectRepository(Credential)
-    private credentialRepository: CredentialRepository,
+    private credentialRepository: Repository<Credential>,
   ) {}
 
-  async create(createCredentialDto: CreateCredentialDto): Promise<Credential> {
-    return this.credentialRepository.createCredential(createCredentialDto);
+  async signCredential(toBeSigned: ToBeSignedDto): Promise<Credential> {
+    console.log('called');
+
+    // Get credentia, sign and save to DB
+
+    const newSignedCredential = new Credential();
+    newSignedCredential.credential = toBeSigned.unsignedCredential;
+    await this.credentialRepository.save(newSignedCredential);
+
+    return newSignedCredential;
   }
 }

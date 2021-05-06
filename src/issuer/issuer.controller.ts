@@ -7,7 +7,7 @@ export class IssuerController {
   constructor(private readonly issuanceService: IssuerService) {}
 
   @Post('build-unsigned-vc')
-  buildCredentialOffer(@Req() @Body() unsignedVc: UnsignedVcDto) {
+  buildUnsignedVc(@Req() @Body() unsignedVc: UnsignedVcDto) {
     return this.issuanceService.buildUnsignedVc(unsignedVc);
   }
 }

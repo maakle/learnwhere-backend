@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { IssuerService } from './issuer.service';
 import { IssuerController } from './issuer.controller';
-import UnsignedVC from './entities/unsignedVC.entity';
+import UnsignedVC from './entities/unsignedVc.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

@@ -1,10 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Credential extends BaseEntity {
+class Credential {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id?: number;
 
-  @Column()
-  url: string;
+  @Column({
+    type: 'jsonb',
+  })
+  public credential: Record<string, unknown>;
 }
+
+export default Credential;

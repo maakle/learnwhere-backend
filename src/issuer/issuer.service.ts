@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CommonNetworkMember } from '@affinidi/wallet-core-sdk';
 import UnsignedVcDto from './dto/UnsignedVc.dto';
-import UnsignedVC from './entities/unsignedVC.entity';
+import UnsignedVc from './entities/unsignedVc.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -10,8 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class IssuerService {
   constructor(
     private configService: ConfigService,
-    @InjectRepository(UnsignedVC)
-    private unsignedVcRepository: Repository<UnsignedVC>,
+    @InjectRepository(UnsignedVc)
+    private unsignedVcRepository: Repository<UnsignedVc>,
   ) {}
 
   async onModuleInit() {
@@ -36,10 +36,11 @@ export class IssuerService {
   }
 
   async buildUnsignedVc(unsignedVcData: UnsignedVcDto) {
-    // TODO save to Affinidi
+    // TODO Build the VC
 
-    const unsignVC = this.unsignedVcRepository.create(unsignedVcData);
-    await this.unsignedVcRepository.save(unsignVC);
-    return unsignVC;
+    // Save to DB
+    const unsignedVC = this.unsignedVcRepository.create(unsignedVcData);
+    await this.unsignedVcRepository.save(unsignedVC);
+    return unsignedVC;
   }
 }
