@@ -2,8 +2,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { IssuerModule } from './issuer/issuer.module';
 import { CredentialsModule } from './credentials/credentials.module';
@@ -14,6 +15,7 @@ import expertCredential from '../config/credentials/expertCredential';
 
 @Module({
   imports: [
+    AuthenticationModule,
     ConfigModule.forRoot({
       load: [didConfig, expertCredential],
       isGlobal: true,

@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import User from './entities/user.entity';
-import CreateUserDto from './dto/createUser.dto';
 import { CommonNetworkMember } from '@affinidi/wallet-core-sdk';
+import RegisterDto from 'src/authentication/dto/register.dto';
 
 @Injectable()
 export class UsersService {
@@ -55,7 +55,7 @@ export class UsersService {
     );
   }
 
-  async createUser(userData: CreateUserDto) {
+  async createUser(userData: RegisterDto) {
     const newUser = await this.usersRepository.create(userData);
     await this.usersRepository.save(newUser);
     return newUser;
