@@ -8,6 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
+import { SubsModule } from './subs/subs.module';
+import { VotesModule } from './votes/votes.module';
 
 import jwtConfig from '../config/jwtConfig';
 
@@ -21,6 +24,9 @@ import jwtConfig from '../config/jwtConfig';
     DatabaseModule,
     UsersModule,
     PostsModule,
+    CommentsModule,
+    SubsModule,
+    VotesModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -9,6 +9,8 @@ export class PostsService {
   }
 
   findAll() {
+    console.log('called');
+
     return `This action returns all posts`;
   }
 
