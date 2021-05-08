@@ -7,19 +7,20 @@ import { AuthenticationModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
+import { PostsModule } from './posts/posts.module';
 
-import didConfig from '../config/didConfig';
-import expertCredential from '../config/credentials/expertCredential';
+import jwtConfig from '../config/jwtConfig';
 
 @Module({
   imports: [
     AuthenticationModule,
     ConfigModule.forRoot({
-      load: [didConfig, expertCredential],
+      load: [jwtConfig],
       isGlobal: true,
     }),
     DatabaseModule,
     UsersModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [],

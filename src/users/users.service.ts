@@ -12,27 +12,6 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async onModuleInit() {
-    // const options = {
-    //   issuerUrl: 'https://affinity-issuer.staging.affinity-project.org',
-    //   apiKey: '3815582b-ebe0-40d0-9901-b6680bfd8e3c',
-    // };
-    // const seed = await CommonNetworkMember.generateSeed('elem');
-    // const seedHex = seed.toString('hex');
-    // const seedWithMethod = `${seedHex}++${'elem'}`;
-    // const affinidiClient = await CommonNetworkMember.fromSeed(
-    //   seedHex,
-    //   options,
-    //   '230fb20fb2f08b23',
-    // );
-    // const { did, encryptedSeed } = await CommonNetworkMember.register(
-    //   '230fb20fb2f08b23',
-    //   options,
-    // );
-    // console.log('did ', did);
-    // console.log('encryptedSeed ', encryptedSeed);
-  }
-
   async getByEmail(email: string) {
     const user = await this.usersRepository.findOne({ email });
     if (user) {
