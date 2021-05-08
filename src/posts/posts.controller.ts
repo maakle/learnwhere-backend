@@ -3,15 +3,16 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
+  Req,
+  Res,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
 import JwtAuthenticationGuard from '../auth/jwt-authentication.guard';
+import { CommentOnPostDto } from './dto/comment-on-post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -19,27 +20,46 @@ export class PostsController {
 
   @Post()
   @UseGuards(JwtAuthenticationGuard)
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  create(@Body() createPostDto: CreatePostDto, res: Response) {
+    return this.postsService.create(createPostDto, res);
   }
 
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  getPosts(@Req() request: Request, @Res() response: Response) {
+    return this.postsService.getPosts(request, response);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  @Get(':identifier/:slug')
+  getPost(
+    @Param('identifier') identifier: string,
+    @Param('slug') slug: string,
+    @Res() response: Response,
+  ) {
+    return this.postsService.getPost(identifier, slug, response);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
+  @Post(':identifier/:slug/comments')
+  @UseGuards(JwtAuthenticationGuard)
+  commentOnPost(
+    @Param('identifier') identifier: string,
+    @Param('slug') slug: string,
+    @Body() bodyData: CommentOnPostDto,
+    @Res() response: Response,
+  ) {
+    return this.postsService.commentOnPost(
+      identifier,
+      slug,
+      bodyData,
+      response,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  @Get(':identifier/:slug/comments')
+  getPostComments(
+    @Param('identifier') identifier: string,
+    @Param('slug') slug: string,
+    @Res() response: Response,
+  ) {
+    return this.postsService.getPostComments(identifier, slug, response);
   }
 }
