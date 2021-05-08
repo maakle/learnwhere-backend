@@ -8,6 +8,9 @@ class User {
   @Column({ unique: true })
   public email: string;
 
+  @Column({ unique: true })
+  public username: string;
+
   @Column()
   public password: string;
 }
