@@ -5,6 +5,8 @@ import RegisterDto from './dto/register.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
+import RequestWithUser from './requestWithUser.interface';
 
 @Injectable()
 export class AuthenticationService {
@@ -37,6 +39,15 @@ export class AuthenticationService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  public async login(request: RequestWithUser, response: Response) {
+    const { user } = request;
+    const cookie = this.getCookieWithJwtToken(user.id);
+    response.setHeader('Set-Cookie', cookie);
+    user.password = undefined;
+    user.id = undefined;
+    return response.send(user);
   }
 
   public async getAuthenticatedUser(email: string, plainTextPassword: string) {
