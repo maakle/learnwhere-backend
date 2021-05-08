@@ -16,6 +16,13 @@ export class AuthenticationService {
     private readonly configService: ConfigService,
   ) {}
 
+  public async getCurrentUser(request: RequestWithUser) {
+    const user = request.user;
+    user.password = undefined;
+    user.id = undefined;
+    return user;
+  }
+
   public async register(registrationData: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
 
@@ -48,6 +55,11 @@ export class AuthenticationService {
     user.password = undefined;
     user.id = undefined;
     return response.send(user);
+  }
+
+  public async logout(_: RequestWithUser, response: Response) {
+    response.setHeader('Set-Cookie', this.getCookieForLogOut());
+    return response.sendStatus(200);
   }
 
   public async getAuthenticatedUser(email: string, plainTextPassword: string) {

@@ -22,10 +22,7 @@ export class AuthenticationController {
   @UseGuards(JwtAuthenticationGuard)
   @Get()
   authenticate(@Req() request: RequestWithUser) {
-    const user = request.user;
-    user.password = undefined;
-    user.id = undefined;
-    return user;
+    return this.authenticationService.getCurrentUser(request);
   }
 
   @Post('register')
@@ -43,10 +40,6 @@ export class AuthenticationController {
   @UseGuards(JwtAuthenticationGuard)
   @Post('logout')
   async logOut(@Req() request: RequestWithUser, @Res() response: Response) {
-    response.setHeader(
-      'Set-Cookie',
-      this.authenticationService.getCookieForLogOut(),
-    );
-    return response.sendStatus(200);
+    return this.authenticationService.logout(request, response);
   }
 }
