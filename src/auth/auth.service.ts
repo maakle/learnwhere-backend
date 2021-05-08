@@ -19,7 +19,6 @@ export class AuthenticationService {
   public async getCurrentUser(request: RequestWithUser) {
     const user = request.user;
     user.password = undefined;
-    user.id = undefined;
     return user;
   }
 
@@ -50,8 +49,9 @@ export class AuthenticationService {
 
   public async login(request: RequestWithUser, response: Response) {
     const { user } = request;
-    const cookie = this.getCookieWithJwtToken(user.id);
+    const { cookie, token } = this.getCookieWithJwtToken(user.id);
     response.setHeader('Set-Cookie', cookie);
+    user.token = token;
     user.password = undefined;
     user.id = undefined;
     return response.send(user);
@@ -95,9 +95,10 @@ export class AuthenticationService {
   public getCookieWithJwtToken(userId: number) {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
+    const cookie = `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
       'JWT_EXPIRATION_TIME',
     )}`;
+    return { cookie, token };
   }
 
   public getCookieForLogOut() {

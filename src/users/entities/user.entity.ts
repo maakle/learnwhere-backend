@@ -13,6 +13,8 @@ class User {
 
   @Column()
   public password: string;
+
+  token: any;
 }
 
 export default User;

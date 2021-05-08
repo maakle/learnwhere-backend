@@ -21,7 +21,7 @@ export class AuthenticationController {
 
   @UseGuards(JwtAuthenticationGuard)
   @Get()
-  authenticate(@Req() request: RequestWithUser) {
+  getCurrentUser(@Req() request: RequestWithUser) {
     return this.authenticationService.getCurrentUser(request);
   }
 
@@ -39,7 +39,7 @@ export class AuthenticationController {
 
   @UseGuards(JwtAuthenticationGuard)
   @Post('logout')
-  async logOut(@Req() request: RequestWithUser, @Res() response: Response) {
+  async logout(@Req() request: RequestWithUser, @Res() response: Response) {
     return this.authenticationService.logout(request, response);
   }
 }
