@@ -1,18 +1,20 @@
+import { Request, Response } from 'express';
+
 import {
+  Body,
   Controller,
   Get,
-  Post,
-  Body,
   Param,
-  UseGuards,
+  Post,
   Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
+
 import JwtAuthenticationGuard from '../auth/jwt-authentication.guard';
 import { CommentOnPostDto } from './dto/comment-on-post.dto';
+import { CreatePostDto } from './dto/create-post.dto';
+import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {

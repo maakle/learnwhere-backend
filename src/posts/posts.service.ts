@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
 import { Request, Response } from 'express';
+
+import Comment from '../comments/entities/comment.entity';
+import { CommentOnPostDto } from './dto/comment-on-post.dto';
+import { CreatePostDto } from './dto/create-post.dto';
+import { Injectable } from '@nestjs/common';
 import Post from './entities/post.entity';
 import Sub from '../subs/entities/sub.entity';
-import Comment from '../comments/entities/comment.entity';
-import { CreatePostDto } from './dto/create-post.dto';
-import { CommentOnPostDto } from './dto/comment-on-post.dto';
 
 @Injectable()
 export class PostsService {

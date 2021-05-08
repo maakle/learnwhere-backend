@@ -1,19 +1,19 @@
 import {
   BeforeInsert,
   Column,
-  Entity as TOEntity,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
+  Entity as TOEntity,
 } from 'typeorm';
-
-import { makeId } from '../../util/helpers';
 import { Exclude, Expose } from 'class-transformer';
-import Post from '../../posts/entities/post.entity';
+
 import Entity from '../../database/baseEntity.entity';
+import Post from '../../posts/entities/post.entity';
 import User from '../../users/entities/user.entity';
 import Vote from '../../votes/entities/vote.entity';
+import { makeId } from '../../util/helpers';
 
 @TOEntity('comments')
 export default class Comment extends Entity {

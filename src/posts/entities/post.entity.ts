@@ -1,20 +1,21 @@
 import {
-  Entity as TOEntity,
+  AfterLoad,
+  BeforeInsert,
   Column,
   Index,
-  BeforeInsert,
-  ManyToOne,
   JoinColumn,
+  ManyToOne,
   OneToMany,
-  AfterLoad,
+  Entity as TOEntity,
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
-import Entity from '../../database/baseEntity.entity';
-import User from '../../users/entities/user.entity';
-import Comment from '../../comments/entities/comment.entity';
-import Sub from '../../subs/entities/sub.entity';
-import Vote from '../../votes/entities/vote.entity';
 import { makeId, slugify } from '../../util/helpers';
+
+import Comment from '../../comments/entities/comment.entity';
+import Entity from '../../database/baseEntity.entity';
+import Sub from '../../subs/entities/sub.entity';
+import User from '../../users/entities/user.entity';
+import Vote from '../../votes/entities/vote.entity';
 
 @TOEntity('posts')
 export default class Post extends Entity {

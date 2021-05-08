@@ -1,9 +1,10 @@
+import { Column, Index, OneToMany, Entity as TOEntity } from 'typeorm';
 import { IsEmail, Length } from 'class-validator';
-import { Entity as TOEntity, Column, Index, OneToMany } from 'typeorm';
+
+import Entity from '../../database/baseEntity.entity';
 import { Exclude } from 'class-transformer';
 import Post from '../../posts/entities/post.entity';
 import Vote from '../../votes/entities/vote.entity';
-import Entity from '../../database/baseEntity.entity';
 
 @TOEntity('users')
 class User extends Entity {

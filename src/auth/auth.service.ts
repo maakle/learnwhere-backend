@@ -1,12 +1,14 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 import RegisterDto from './dto/register.dto';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-import { Response } from 'express';
 import RequestWithUser from './requestWithUser.interface';
+import { Response } from 'express';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthenticationService {
