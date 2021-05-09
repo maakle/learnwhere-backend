@@ -1,14 +1,13 @@
-import * as bcrypt from 'bcrypt';
-
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { Response } from 'express';
 import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
+
+import { UsersService } from '../users/users.service';
 import RegisterDto from './dto/register.dto';
 import RequestWithUser from './requestWithUser.interface';
-import { Response } from 'express';
-import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,11 +19,10 @@ export class AuthenticationService {
 
   public async getCurrentUser(request: RequestWithUser) {
     const user = request.user;
-    user.password = undefined;
     return user;
   }
 
-  public async register(registrationData: RegisterDto) {
+  public async register(registrationData: RegisterDto, response: Response) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
 
     try {
@@ -33,8 +31,10 @@ export class AuthenticationService {
         username: registrationData.username,
         password: hashedPassword,
       });
-      createdUser.password = undefined;
-      return createdUser;
+      const { cookie, token } = this.getCookieWithJwtToken(createdUser.id);
+      createdUser.token = token;
+      response.setHeader('Set-Cookie', cookie);
+      return response.send(createdUser);
     } catch (error) {
       if (error?.code === PostgresErrorCode.UniqueViolation) {
         throw new HttpException(
@@ -49,13 +49,12 @@ export class AuthenticationService {
     }
   }
 
+  // This functions is protected through the auth guard which logs users in
   public async login(request: RequestWithUser, response: Response) {
     const { user } = request;
     const { cookie, token } = this.getCookieWithJwtToken(user.id);
-    response.setHeader('Set-Cookie', cookie);
     user.token = token;
-    user.password = undefined;
-    user.id = undefined;
+    response.setHeader('Set-Cookie', cookie);
     return response.send(user);
   }
 
@@ -68,7 +67,6 @@ export class AuthenticationService {
     try {
       const user = await this.usersService.getByEmail(email);
       await this.verifyPassword(plainTextPassword, user.password);
-      user.password = undefined;
       return user;
     } catch (error) {
       throw new HttpException(

@@ -1,14 +1,7 @@
-import {
-  Body,
-  Req,
-  Controller,
-  HttpCode,
-  Post,
-  Res,
-  UseGuards,
-  Get,
-} from '@nestjs/common';
+// eslint-disable-next-line prettier/prettier
+import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
+
 import { AuthenticationService } from './auth.service';
 import RegisterDto from './dto/register.dto';
 import JwtAuthenticationGuard from './jwt-authentication.guard';
@@ -26,8 +19,11 @@ export class AuthenticationController {
   }
 
   @Post('register')
-  async register(@Body() registrationData: RegisterDto) {
-    return this.authenticationService.register(registrationData);
+  async register(
+    @Body() registrationData: RegisterDto,
+    @Res() response: Response,
+  ) {
+    return this.authenticationService.register(registrationData, response);
   }
 
   @HttpCode(200)
