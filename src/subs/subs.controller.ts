@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import { Body, Controller, Get, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
