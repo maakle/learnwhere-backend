@@ -1,14 +1,8 @@
-import {
-  Column,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  Entity as TOEntity,
-} from 'typeorm';
+import { Expose } from 'class-transformer';
+// eslint-disable-next-line prettier/prettier
+import { Column, Entity as TOEntity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 import Entity from '../../database/baseEntity.entity';
-import { Expose } from 'class-transformer';
 import Post from '../../posts/entities/post.entity';
 import User from '../../users/entities/user.entity';
 
