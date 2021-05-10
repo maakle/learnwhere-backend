@@ -2,7 +2,7 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
-import JwtAuthenticationGuard from '../../dist/src/auth/jwt-authentication.guard';
+import JwtAuthenticationGuard from '../auth/jwt-authentication.guard';
 import RequestWithUser from '../auth/requestWithUser.interface';
 import NewSubDto from './dto/new-sub.dto';
 import { SubsService } from './subs.service';
