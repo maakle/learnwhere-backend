@@ -1,6 +1,6 @@
 // eslint-disable-next-line prettier/prettier
 import { Body, Controller, Get, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { request, Response } from 'express';
+import { Response } from 'express';
 
 import JwtAuthenticationGuard from '../auth/jwt-authentication.guard';
 import RequestWithUser from '../auth/requestWithUser.interface';
