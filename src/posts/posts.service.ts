@@ -68,7 +68,7 @@ export class PostsService {
       );
 
       if (user) {
-        post.setUserVote(res.locals.user);
+        post.setUserVote(user);
       }
       return res.send(post);
     } catch (err) {
@@ -117,7 +117,7 @@ export class PostsService {
       });
 
       if (user) {
-        comments.forEach((c) => c.setUserVote(res.locals.user));
+        comments.forEach((c) => c.setUserVote(user));
       }
 
       return res.send(comments);

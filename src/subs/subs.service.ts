@@ -62,7 +62,7 @@ export class SubsService {
       sub.posts = posts;
 
       if (user) {
-        sub.posts.forEach((p) => p.setUserVote(res.locals.user));
+        sub.posts.forEach((p) => p.setUserVote(user));
       }
 
       return res.json(sub);

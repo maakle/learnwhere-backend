@@ -49,7 +49,7 @@ export class UsersService {
   public async getUserSubmissions(username: string, res: Response) {
     try {
       const user = await User.findOneOrFail({
-        where: { username: username },
+        where: { username },
         select: ['username', 'createdAt'],
       });
 
@@ -64,8 +64,8 @@ export class UsersService {
       });
 
       if (user) {
-        posts.forEach((p) => p.setUserVote(res.locals.user));
-        comments.forEach((c) => c.setUserVote(res.locals.user));
+        posts.forEach((p) => p.setUserVote(user));
+        comments.forEach((c) => c.setUserVote(user));
       }
 
       const submissions: any[] = [];
