@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { isEmpty } from 'class-validator';
 import { Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 
 import RequestWithUser from '../auth/requestWithUser.interface';
 import Post from '../posts/entities/post.entity';
@@ -88,6 +88,37 @@ export class SubsService {
       return res.json(subs);
     } catch (err) {
       console.log(err);
+      return res.status(500).json({ error: 'Something went wrong' });
+    }
+  }
+
+  public async topSubs(res: Response) {
+    try {
+      /**
+       * SELECT s.title, s.name,
+       * COALESCE('http://localhost:5000/images/' || s."imageUrn" , 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y') as imageUrl,
+       * count(p.id) as "postCount"
+       * FROM subs s
+       * LEFT JOIN posts p ON s.name = p."subName"
+       * GROUP BY s.title, s.name, imageUrl
+       * ORDER BY "postCount" DESC
+       * LIMIT 5;
+       */
+      const imageUrlExp = `COALESCE('${process.env.APP_URL}/images/' || s."imageUrn" , 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y')`;
+      const subs = await getConnection()
+        .createQueryBuilder()
+        .select(
+          `s.title, s.name, ${imageUrlExp} as "imageUrl", count(p.id) as "postCount"`,
+        )
+        .from(Sub, 's')
+        .leftJoin(Post, 'p', `s.name = p."subName"`)
+        .groupBy('s.title, s.name, "imageUrl"')
+        .orderBy(`"postCount"`, 'DESC')
+        .limit(5)
+        .execute();
+
+      return res.json(subs);
+    } catch (err) {
       return res.status(500).json({ error: 'Something went wrong' });
     }
   }

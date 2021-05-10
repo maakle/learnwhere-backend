@@ -35,6 +35,11 @@ export class SubsController {
     return this.subsService.searchSubs(name, response);
   }
 
+  @Get('ranking/top-subs')
+  async topSubs(@Res() response: Response) {
+    return this.subsService.topSubs(response);
+  }
+
   @UseGuards(JwtAuthenticationGuard)
   @Post(':name/image')
   async uploadSubImage(
