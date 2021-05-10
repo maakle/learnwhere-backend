@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import User from '../users/entities/user.entity';
+
 import Comment from '../comments/entities/comment.entity';
-import Vote from '../votes/entities/vote.entity';
-import Sub from '../subs/entities/sub.entity';
 import Post from '../posts/entities/post.entity';
+import Sub from '../subs/entities/sub.entity';
+import User from '../users/entities/user.entity';
+import Vote from '../votes/entities/vote.entity';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import Post from '../posts/entities/post.entity';
       type: 'postgres',
       url: process.env.DATABASE_URL,
       entities: [User, Comment, Post, Sub, Vote],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV === 'development',
     }),
   ],
 })
