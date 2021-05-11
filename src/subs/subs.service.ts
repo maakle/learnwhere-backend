@@ -148,4 +148,17 @@ export class SubsService {
     });
     return subImage;
   }
+
+  async deleteSubImage(subName: string) {
+    const sub = await Sub.findOneOrFail({ name: subName });
+
+    const fileId = sub.imageUrn?.id;
+    if (fileId) {
+      await this.subsRepository.update(sub.id, {
+        ...sub,
+        imageUrn: null,
+      });
+      await this.dbService.deletePublicFile(fileId);
+    }
+  }
 }
