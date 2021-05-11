@@ -1,6 +1,7 @@
 // eslint-disable-next-line prettier/prettier
-import { Body, Controller, Get, Param, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express, Response } from 'express';
 
 import JwtAuthenticationGuard from '../auth/jwt-authentication.guard';
 import RequestWithUser from '../auth/requestWithUser.interface';
@@ -40,13 +41,18 @@ export class SubsController {
     return this.subsService.topSubs(response);
   }
 
+  @Post(':name/sub-image')
   @UseGuards(JwtAuthenticationGuard)
-  @Post(':name/image')
+  @UseInterceptors(FileInterceptor('file'))
   async uploadSubImage(
     @Param('name') name: string,
     @Req() request: RequestWithUser,
-    @Res() response: Response,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.subsService.uploadSubImage(request, response);
+    return this.subsService.uploadSubImage(
+      name,
+      file.buffer,
+      file.originalname,
+    );
   }
 }

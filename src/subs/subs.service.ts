@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { isEmpty } from 'class-validator';
 import { Response } from 'express';
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection, getRepository, Repository } from 'typeorm';
 
 import RequestWithUser from '../auth/requestWithUser.interface';
+import { DatabaseService } from '../database/database.service';
 import Post from '../posts/entities/post.entity';
 import NewSubDto from './dto/new-sub.dto';
 import Sub from './entities/sub.entity';
 
 @Injectable()
 export class SubsService {
+  constructor(
+    @InjectRepository(Sub)
+    private subsRepository: Repository<Sub>,
+    private readonly dbService: DatabaseService,
+  ) {}
+
   public async createSub(
     req: RequestWithUser,
     res: Response,
@@ -123,8 +131,21 @@ export class SubsService {
     }
   }
 
-  public async uploadSubImage(req: RequestWithUser, res: Response) {
-    // TODO
-    return res.send('Received');
+  public async uploadSubImage(
+    subName: string,
+    imageBuffer: Buffer,
+    filename: string,
+  ) {
+    const subImage = await this.dbService.uploadPublicFile(
+      imageBuffer,
+      filename,
+    );
+    const sub = await Sub.findOneOrFail({ name: subName });
+
+    await this.subsRepository.update(sub.id, {
+      ...sub,
+      imageUrn: subImage,
+    });
+    return subImage;
   }
 }

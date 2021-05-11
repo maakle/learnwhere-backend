@@ -1,11 +1,12 @@
-import { Expose } from 'class-transformer';
 // eslint-disable-next-line prettier/prettier
-import { Column, Entity as TOEntity, Index, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity as TOEntity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
 
 import Entity from '../../database/baseEntity.entity';
+import PublicFile from '../../database/entities/publicFile.entity';
 import Post from '../../posts/entities/post.entity';
 import User from '../../users/entities/user.entity';
 
+// eslint-disable-next-line prettier/prettier
 @TOEntity('subs')
 export default class Sub extends Entity {
   constructor(sub: Partial<Sub>) {
@@ -23,12 +24,6 @@ export default class Sub extends Entity {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ nullable: true })
-  imageUrn: string;
-
-  @Column({ nullable: true })
-  bannerUrn: string;
-
   @Column()
   username: string;
 
@@ -39,17 +34,17 @@ export default class Sub extends Entity {
   @OneToMany(() => Post, (post) => post.sub)
   posts: Post[];
 
-  @Expose()
-  get imageUrl(): string {
-    return this.imageUrn
-      ? `${process.env.APP_URL}/images/${this.imageUrn}`
-      : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-  }
+  @JoinColumn()
+  @OneToOne(() => PublicFile, {
+    eager: true,
+    nullable: true,
+  })
+  public imageUrn?: PublicFile;
 
-  @Expose()
-  get bannerUrl(): string | undefined {
-    return this.bannerUrn
-      ? `${process.env.APP_URL}/images/${this.bannerUrn}`
-      : undefined;
-  }
+  @JoinColumn()
+  @OneToOne(() => PublicFile, {
+    eager: true,
+    nullable: true,
+  })
+  public bannerUrn?: PublicFile;
 }

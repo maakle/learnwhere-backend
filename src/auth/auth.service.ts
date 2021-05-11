@@ -8,6 +8,7 @@ import PostgresErrorCode from 'src/database/postgresErrorCodes.enum';
 import { UsersService } from '../users/users.service';
 import RegisterDto from './dto/register.dto';
 import RequestWithUser from './requestWithUser.interface';
+import { TokenPayload } from './tokenPayload.interface';
 
 @Injectable()
 export class AuthenticationService {
